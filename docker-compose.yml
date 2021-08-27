@@ -1,0 +1,26 @@
+version: "3"
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./capstone_frontend
+    volumes:
+      - /app/node_modules
+      - ./capstone_frontend:/app
+    stdin_open: true
+
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "80:80"
+
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./capstone_backend
+    volumes:
+      - /app/node_modules
+      - ./capstone_backend:/app
